@@ -24,6 +24,7 @@ const litterViewport: string = "litter-editor-litter-viewport";
 const multiplierDropdown: string = "litter-editor-multiplier-drop-down";
 const buttonCreateLitter: string = "litter-editor-button-create-litter";
 const multiplierIndex: string[] = ["x1", "x10", "x100"];
+const multiplierLabel: string = "litter-editor-multiplier-label";
 const toolCreateLitter: string = "litter-editor-tool-create-litter";
 const litterTypeNumber: number = -1;
 
@@ -66,7 +67,7 @@ export class LitterEditorWindow {
 								width: 260,
 								height: widgetLineHeight,
 								textAlign: "centred",
-								text: "Enox",
+								text: "github.com/EnoxRCT/OpenRCT2-LitterEditor",
 								tooltip: "Powered by Manticore_007 and Basssiiie",
 								isDisabled: true,
 							},
@@ -82,8 +83,9 @@ export class LitterEditorWindow {
 								name: buttonPipette,
 								type: "button",
 								border: true,
-								x: 30,
-								y: 90,
+								tooltip: "Select litter",
+								x: 20,
+								y: 75,
 								width:25,
 								height: 25,
 								image: 29402, //pipette
@@ -94,8 +96,9 @@ export class LitterEditorWindow {
 								name: buttonDelete,
 								type: "button",
 								border: true,
-								x: 90,
-								y: 90,
+								tooltip: "Remove litter",
+								x: 80,
+								y: 75,
 								width: 25,
 								height: 25,
 								image: 5165, //litter bin
@@ -106,8 +109,9 @@ export class LitterEditorWindow {
 								name: buttonCreateLitter,
 								type: "button",
 								border: true,
-								x: 60,
-								y: 90,
+								tooltip: "Place litter",
+								x: 50,
+								y: 75,
 								width: 25,
 								height: 25,
 								image: 5173, //paint brush
@@ -117,8 +121,8 @@ export class LitterEditorWindow {
 							<LabelWidget>{
 								name: litterTypeLabel,
 								type: "label",
-								x: 30,
-								y: 125,
+								x: 20,
+								y: 110,
 								width: 75,
 								height: widgetLineHeight,
 								text: "Litter Type",
@@ -127,8 +131,8 @@ export class LitterEditorWindow {
 							<DropdownDesc>{
 								name: litterTypeDropDown,
 								type: "dropdown",
-								x: 100,
-								y: 125,
+								x: 90,
+								y: 110,
 								width: 125,
 								height: widgetLineHeight,
 								items: [
@@ -149,23 +153,12 @@ export class LitterEditorWindow {
 								isDisabled: true,
 								onChange: (number) => setLitter(number)
 							},
-							<DropdownDesc>{
-								name: multiplierDropdown,
-								type: "dropdown",
-								x: 120,
-								y: 100,
-								width: 75,
-								height: widgetLineHeight,
-								items: multiplierIndex,
-								selectedIndex: 0,
-								isDisabled: true,
-								onChange: (number) => setMultiplier(number)
-							},
+							
 							<LabelWidget>{
 								name: xPositionLabel,
 								type: "label",
-								x: 30,
-								y: 150,
+								x: 20,
+								y: 135,
 								width: 125,
 								height: widgetLineHeight,
 								text: "X-Position",
@@ -174,8 +167,8 @@ export class LitterEditorWindow {
 							<SpinnerDesc>{
 								name: xPositionSpinner,
 								type: "spinner",
-								x: 100,
-								y: 150,
+								x: 90,
+								y: 135,
 								width: 70,
 								height: widgetLineHeight,
 								text: " ",
@@ -186,8 +179,8 @@ export class LitterEditorWindow {
 							<LabelWidget>{
 								name: yPositionLabel,
 								type: "label",
-								x: 30,
-								y: 168,
+								x: 20,
+								y: 153,
 								width: 125,
 								height: widgetLineHeight,
 								text: "Y-Position",
@@ -196,8 +189,8 @@ export class LitterEditorWindow {
 							<SpinnerDesc>{
 								name: yPositionSpinner,
 								type: "spinner",
-								x: 100,
-								y: 168,
+								x: 90,
+								y: 153,
 								width: 70,
 								height: widgetLineHeight,
 								text: " ",
@@ -208,8 +201,8 @@ export class LitterEditorWindow {
 							<LabelWidget>{
 								name: zPositionLabel,
 								type: "label",
-								x: 30,
-								y: 186,
+								x: 20,
+								y: 171,
 								width: 125,
 								height: widgetLineHeight,
 								text: "Z-Position",
@@ -218,8 +211,8 @@ export class LitterEditorWindow {
 							<SpinnerDesc>{
 								name: zPositionSpinner,
 								type: "spinner",
-								x: 100,
-								y: 186,
+								x: 90,
+								y: 171,
 								width: 70,
 								height: widgetLineHeight,
 								text: " ",
@@ -227,13 +220,35 @@ export class LitterEditorWindow {
 								onIncrement: () => increase(zPositionSpinner, "z"),
 								onDecrement: () => decrease(zPositionSpinner, "z"),
 							},
+							<LabelWidget>{
+								name: multiplierLabel,
+								type: "label",
+								x: 20,
+								y: 196,
+								width: 125,
+								height: widgetLineHeight,
+								text: "Multiplier",
+								isDisabled: true,
+							},
+							<DropdownDesc>{
+								name: multiplierDropdown,
+								type: "dropdown",
+								x: 90,
+								y: 196,
+								width: 70,
+								height: widgetLineHeight,
+								items: multiplierIndex,
+								selectedIndex: 0,
+								isDisabled: true,
+								onChange: (number) => setMultiplier(number)
+							},
 							<ViewportDesc>{
 								name: litterViewport,
 								type: "viewport",
-								x: 175,
-								y: 150,
-								width: 50,
-								height: 50,
+								x: 165,
+								y: 135,
+								width: 75,
+								height: 75,
 							}
 						],
 					},
@@ -251,7 +266,7 @@ export class LitterEditorWindow {
 								width: 260,
 								height: widgetLineHeight,
 								textAlign: "centred",
-								text: "Enox",
+								text: "github.com/EnoxRCT/OpenRCT2-LitterEditor",
 								tooltip: "Powered by Manticore_007 and Basssiiie",
 								isDisabled: true,
 							},
@@ -262,6 +277,15 @@ export class LitterEditorWindow {
 								width: 240,
 								height: 170,
 								text: "Stats",
+							},
+							<LabelWidget>{
+								type: "label",
+								x: 20,
+								y: 120,
+								width: 220,
+								height: widgetLineHeight,
+								textAlign: "centred",
+								text: "Under development",
 							},
 						],
 					},
@@ -279,7 +303,7 @@ export class LitterEditorWindow {
 								width: 260,
 								height: widgetLineHeight,
 								textAlign: "centred",
-								text: "Enox",
+								text: "github.com/EnoxRCT/OpenRCT2-LitterEditor",
 								tooltip: "Powered by Manticore_007 and Basssiiie",
 								isDisabled: true,
 							},
@@ -290,6 +314,15 @@ export class LitterEditorWindow {
 								width: 240,
 								height: 170,
 								text: "Info",
+							},
+							<LabelWidget>{
+								type: "label",
+								x: 20,
+								y: 120,
+								width: 220,
+								height: widgetLineHeight,
+								textAlign: "centred",
+								text: "This LitterEditor is my first expierence with coding.\n\nSpecial thanks to:\nManticore_007, Basssiiie, Smitty\nand Gymnasiast.",
 							},
 						],
 					}
@@ -308,6 +341,7 @@ function selectLitter(type: EntityType): void {
 	const createLitterButton = window.findWidget<ButtonWidget>(buttonCreateLitter);
 	const dropDownType = window.findWidget<DropdownWidget>(litterTypeDropDown);
 	const multiplier = window.findWidget<DropdownWidget>(multiplierDropdown);
+	const labelMultiplier = window.findWidget<LabelWidget>(multiplierLabel);
 	const xPosition = window.findWidget<SpinnerWidget>(xPositionSpinner);
 	const yPosition = window.findWidget<SpinnerWidget>(yPositionSpinner);
 	const zPosition = window.findWidget<SpinnerWidget>(zPositionSpinner);
@@ -343,6 +377,7 @@ function selectLitter(type: EntityType): void {
 							window.findWidget<ButtonWidget>(buttonPipette).isPressed = false;
 							dropDownType.isDisabled = false;
 							multiplier.isDisabled = false;
+							labelMultiplier.isDisabled = false;
 							labelLitterType.isDisabled = false;
 							xPosition.isDisabled = false;
 							yPosition.isDisabled = false;
@@ -388,6 +423,7 @@ function removeLitter(type: EntityType): void {
 	const buttonPicker = window.findWidget<ButtonWidget>(buttonPipette);
 	const createLitterButton = window.findWidget<ButtonWidget>(buttonCreateLitter);
 	const multiplier = window.findWidget<DropdownWidget>(multiplierDropdown);
+	const labelMultiplier = window.findWidget<LabelWidget>(multiplierLabel);
 	const dropDownType = window.findWidget<DropdownWidget>(litterTypeDropDown);
 	const xPosition = window.findWidget<SpinnerWidget>(xPositionSpinner);
 	const yPosition = window.findWidget<SpinnerWidget>(yPositionSpinner);
@@ -406,6 +442,7 @@ function removeLitter(type: EntityType): void {
 		createLitterButton.isPressed = false;
 		dropDownType.isDisabled = true;
 		multiplier.isDisabled = true;
+		labelMultiplier.isDisabled = true;
 		labelLitterType.isDisabled = true;
 		xPosition.isDisabled = true;
 		yPosition.isDisabled = true;
@@ -477,6 +514,7 @@ function createLitter(type: EntityType): void {
 	const deleteButton = window.findWidget<ButtonWidget>(buttonDelete);
 	const buttonPicker = window.findWidget<ButtonWidget>(buttonPipette);
 	const multiplier = window.findWidget<DropdownWidget>(multiplierDropdown);
+	const labelMultiplier = window.findWidget<LabelWidget>(multiplierLabel);
 	const dropDownType = window.findWidget<DropdownWidget>(litterTypeDropDown);
 	const xPosition = window.findWidget<SpinnerWidget>(xPositionSpinner);
 	const yPosition = window.findWidget<SpinnerWidget>(yPositionSpinner);
@@ -495,6 +533,7 @@ function createLitter(type: EntityType): void {
 		deleteButton.isPressed = false;
 		dropDownType.isDisabled = true;
 		multiplier.isDisabled = true;
+		labelMultiplier.isDisabled = true;
 		labelLitterType.isDisabled = true;
 		xPosition.isDisabled = true;
 		yPosition.isDisabled = true;

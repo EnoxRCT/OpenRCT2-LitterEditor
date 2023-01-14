@@ -2,12 +2,12 @@
 
 ## Installation
 
-2. Download the latest version of the plugin from the [Releases page](https://github.com/EnoxRCT/OpenRCT2-LitterEditor/releases/tag/v1.1).
-3. To install it, put the downloaded `*.js` file into your `/OpenRCT2/plugin` folder.
+1. Download the latest version of the plugin from the [Releases page](https://github.com/EnoxRCT/OpenRCT2-LitterEditor/releases/tag/v1.0).
+2. To install it, put the downloaded `*.js` file into your `/OpenRCT2/plugin` folder.
     - Easiest way to find the OpenRCT2-folder is by launching the OpenRCT2 game, click and hold on the red toolbox in the main menu, and select "Open custom content folder".
     - Otherwise this folder is commonly found in `C:/Users/<YOUR NAME>/Documents/OpenRCT2/plugin` on Windows.
     - If you already had this plugin installed before, you can safely overwrite the old file.
-4. Once the file is there, it should show up ingame in the dropdown menu under the map icon.
+3. Once the file is there, it should show up ingame in the dropdown menu under the map icon.
 
 ---
 
@@ -43,4 +43,4 @@ This project supports the [OpenRCT2 hot reload feature](https://github.com/OpenR
 
 Don't touch `app.js`, even though it's just an empty file. Its existence makes Nodemon happy, and Nodemon is what watches your files for changes & fires off new dev builds for hot reloading.
 
-Thanks to [wisnia74](https://github.com/wisnia74/openrct2-typescript-mod-template) for providing the template for this mod and readme.
+Thanks to [Basssiiie](https://github.com/Basssiiie) and [wisnia74](https://github.com/wisnia74/openrct2-typescript-mod-template) for providing the template for this mod and readme.

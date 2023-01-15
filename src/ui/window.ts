@@ -26,10 +26,10 @@ const buttonCreateLitter: string = "litter-editor-button-create-litter";
 const multiplierIndex: string[] = ["x1", "x10", "x100"];
 const multiplierLabel: string = "litter-editor-multiplier-label";
 const toolCreateLitter: string = "litter-editor-tool-create-litter";
-const litterTypeNumber: number = -1;
 
 let idLitter: Litter;
 let multiplier: number = 1;
+let selectedLitterType: LitterType = "vomit";
 
 export class LitterEditorWindow {
 	/**
@@ -149,7 +149,7 @@ export class LitterEditorWindow {
 									"Empty Juice Cup",		//10
 									"Empty Bowl Blue"		//11
 								],
-								selectedIndex: litterTypeNumber,
+								selectedIndex: -1,
 								isDisabled: true,
 								onChange: (number) => setLitter(number)
 							},
@@ -397,8 +397,11 @@ function selectLitter(type: EntityType): void {
 //Changes the litterType.
 
 function setLitter(number: number): void {
+	const window = ui.getWindow(windowId);
+	const createLitterButton = window.findWidget<ButtonWidget>(buttonCreateLitter);
 	const litterTypeList: LitterType[] = ["vomit", "vomit_alt", "empty_can", "rubbish", "burger_box", "empty_cup", "empty_box", "empty_bottle", "empty_bowl_red", "empty_drink_carton", "empty_juice_cup", "empty_bowl_blue"];
-	idLitter.litterType = litterTypeList[number];
+	if (idLitter && !createLitterButton.isPressed){idLitter.litterType = litterTypeList[number];}
+	else {selectedLitterType = litterTypeList[number]; debug("littertype set");}
 }
 //Changes the name in the DropDownDesc.
 
@@ -525,23 +528,26 @@ function createLitter(type: EntityType): void {
 	const zLabel = window.findWidget<LabelWidget>(zPositionLabel);
 	if (createLitterButton.isPressed !== false) {
 		createLitterButton.isPressed = false;
+		dropDownType.isDisabled = true;
+		labelLitterType.isDisabled = true;
+		dropDownType.text = " ";
 		ui.tool?.cancel();
 	}
 	else {
 		createLitterButton.isPressed = true;
 		buttonPicker.isPressed = false;
 		deleteButton.isPressed = false;
-		dropDownType.isDisabled = true;
+		dropDownType.isDisabled = false;
 		multiplier.isDisabled = true;
 		labelMultiplier.isDisabled = true;
-		labelLitterType.isDisabled = true;
+		labelLitterType.isDisabled = false;
 		xPosition.isDisabled = true;
 		yPosition.isDisabled = true;
 		zPosition.isDisabled = true;
 		xLabel.isDisabled = true;
 		yLabel.isDisabled = true;
 		zLabel.isDisabled = true;
-		dropDownType.text = " ";
+		dropDownType.selectedIndex = 0;
 		xPosition.text = " ";
 		yPosition.text = " ";
 		zPosition.text = " ";
@@ -558,7 +564,9 @@ function createLitter(type: EntityType): void {
 					const axisCoords = e.mapCoords;
 					const surfaceElements = getTileElements("surface", axisCoords);
 					const oneSurfaceElementZValue = surfaceElements[0].element.baseZ;
-					map.createEntity(type, {x: axisCoords.x, y: axisCoords.y, z: oneSurfaceElementZValue });
+					const createdEntity = map.createEntity(type, {x: axisCoords.x, y: axisCoords.y, z: oneSurfaceElementZValue });
+					const createdLitter = <Litter>createdEntity;
+					createdLitter.litterType = selectedLitterType;
 				}
 			}
 		});

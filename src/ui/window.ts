@@ -717,7 +717,11 @@ function selectLitter(type: EntityType): void {
 
 function setLitter(number: number): void {
 	const window = ui.getWindow(windowId);
+<<<<<<< HEAD
 	const createLitterButton = window.findWidget<ButtonWidget>(buttonCreateLitter)
+=======
+	const createLitterButton = window.findWidget<ButtonWidget>(buttonCreateLitter);
+>>>>>>> c90def2977fb742517ac2ade74043d40963277dc
 	const litterTypeList: LitterType[] = ["vomit", "vomit_alt", "empty_can", "rubbish", "burger_box", "empty_cup", "empty_box", "empty_bottle", "empty_bowl_red", "empty_drink_carton", "empty_juice_cup", "empty_bowl_blue"];
 	if (idLitter && !createLitterButton.isPressed){idLitter.litterType = litterTypeList[number];}
 	else {selectedLitterType = litterTypeList[number]; debug("littertype set");}
@@ -883,7 +887,11 @@ function createLitter(type: EntityType): void {
 					const axisCoords = e.mapCoords;
 					const surfaceElements = getTileElements("surface", axisCoords);
 					const oneSurfaceElementZValue = surfaceElements[0].element.baseZ;
+<<<<<<< HEAD
 					const createdEntity = map.createEntity(type, {x: axisCoords.x, y: axisCoords.y, z: oneSurfaceElementZValue});
+=======
+					const createdEntity = map.createEntity(type, {x: axisCoords.x, y: axisCoords.y, z: oneSurfaceElementZValue });
+>>>>>>> c90def2977fb742517ac2ade74043d40963277dc
 					const createdLitter = <Litter>createdEntity;
 					createdLitter.litterType = selectedLitterType;
 				}

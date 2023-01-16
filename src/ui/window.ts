@@ -2,6 +2,7 @@
 import { debug } from "../helpers/logger";
 import { isDevelopment, pluginVersion } from "../helpers/environment";
 import { getTileElements } from "../helpers/Z-Coords";
+import { litterCount, totalLitterCount } from "../helpers/litterStats";
 
 // Settings for the window
 export const windowId = "litter-editor-window";
@@ -26,10 +27,10 @@ const buttonCreateLitter: string = "litter-editor-button-create-litter";
 const multiplierIndex: string[] = ["x1", "x10", "x100"];
 const multiplierLabel: string = "litter-editor-multiplier-label";
 const toolCreateLitter: string = "litter-editor-tool-create-litter";
-const litterTypeNumber: number = -1;
 
 let idLitter: Litter;
 let multiplier: number = 1;
+let selectedLitterType: LitterType = "vomit";
 
 export class LitterEditorWindow {
 	/**
@@ -149,7 +150,7 @@ export class LitterEditorWindow {
 									"Empty Juice Cup",		//10
 									"Empty Bowl Blue"		//11
 								],
-								selectedIndex: litterTypeNumber,
+								selectedIndex: -1,
 								isDisabled: true,
 								onChange: (number) => setLitter(number)
 							},
@@ -254,8 +255,326 @@ export class LitterEditorWindow {
 					},
 					{
 						image: {
-							frameBase: 5395, //stas
-							frameCount: 12,
+							frameBase: 5391, //stats
+							frameCount: 16,
+							frameDuration: 4,
+						},
+						widgets: [
+							<LabelDesc>{
+								type: "label",
+								x: 0,
+								y: 232,
+								width: 260,
+								height: widgetLineHeight,
+								textAlign: "centred",
+								text: "github.com/EnoxRCT/OpenRCT2-LitterEditor",
+								tooltip: "Powered by Manticore_007 and Basssiiie",
+								isDisabled: true,
+							},
+							<GroupBoxDesc>{
+								type: "groupbox",
+								x: 10,
+								y: 55,
+								width: 240,
+								height: 170,
+								text: "Statistics",
+							},
+							//1st column
+							<CustomDesc>{
+								type: "custom",
+								x: 20,
+								y: 80,
+								width: 14,
+								height: 14,
+								onDraw: function (g) {
+									const img = g.getImage(23101); //vomit
+									if (img)
+									{
+										g.image(img.id, 7, 7);
+									}
+								}
+							},
+							<LabelDesc>{
+								type: "label",
+								x: 40,
+								y: 80,
+								width: 110,
+								height: widgetLineHeight,
+								text: `Vomit: {WHITE}${litterCount("vomit")}`,
+							},
+							<CustomDesc>{
+								type: "custom",
+								x: 20,
+								y: 95,
+								width: 14,
+								height: 14,
+								onDraw: function (g) {
+									const img = g.getImage(23104); //vomit alt
+									if (img)
+									{
+										g.image(img.id, 7, 7);
+									}
+								}
+							},
+							<LabelDesc>{
+								type: "label",
+								x: 40,
+								y: 95,
+								width: 110,
+								height: widgetLineHeight,
+								text: `Vomit Alt: {WHITE}${litterCount("vomit_alt")}`,
+							},
+							<CustomDesc>{
+								type: "custom",
+								x: 20,
+								y: 110,
+								width: 14,
+								height: 14,
+								onDraw: function (g) {
+									const img = g.getImage(5071); //empty can
+									if (img)
+									{
+										g.image(img.id, 0, 0);
+									}
+								}
+							},
+							<LabelDesc>{
+								type: "label",
+								x: 40,
+								y: 110,
+								width: 110,
+								height: widgetLineHeight,
+								text: `Empty Can: {WHITE}${litterCount("empty_can")}`,
+							},
+							<CustomDesc>{
+								type: "custom",
+								x: 20,
+								y: 125,
+								width: 14,
+								height: 14,
+								onDraw: function (g) {
+									const img = g.getImage(5072); //rubbish
+									if (img)
+									{
+										g.image(img.id, 0, 0);
+									}
+								}
+							},
+							<LabelDesc>{
+								type: "label",
+								x: 40,
+								y: 125,
+								width: 110,
+								height: widgetLineHeight,
+								text: `Rubbish: {WHITE}${litterCount("rubbish")}`,
+							},
+							<CustomDesc>{
+								type: "custom",
+								x: 20,
+								y: 140,
+								width: 14,
+								height: 14,
+								onDraw: function (g) {
+									const img = g.getImage(5073); //burger box
+									if (img)
+									{
+										g.image(img.id, 0, 0);
+									}
+								}
+							},
+							<LabelWidget>{
+								type: "label",
+								x: 40,
+								y: 140,
+								width: 110,
+								height: widgetLineHeight,
+								text: `Burger Box: {WHITE}${litterCount("burger_box")}`,
+							},
+							<CustomDesc>{
+								type: "custom",
+								x: 20,
+								y: 155,
+								width: 14,
+								height: 14,
+								onDraw: function (g) {
+									const img = g.getImage(5084); //empty cup
+									if (img)
+									{
+										g.image(img.id, 0, 0);
+									}
+								}
+							},
+							<LabelWidget>{
+								type: "label",
+								x: 40,
+								y: 155,
+								width: 110,
+								height: widgetLineHeight,
+								text: `Empty Cup: {WHITE}${litterCount("empty_cup")}`,
+							},
+							//2nd column
+							<CustomDesc>{
+								type: "custom",
+								x: 130,
+								y: 80,
+								width: 14,
+								height: 14,
+								onDraw: function (g) {
+									const img = g.getImage(5087); //empty box
+									if (img)
+									{
+										g.image(img.id, 0, 0);
+									}
+								}
+							},
+							<LabelDesc>{
+								type: "label",
+								x: 150,
+								y: 80,
+								width: 110,
+								height: widgetLineHeight,
+								text: `Empty Box: {WHITE}${litterCount("empty_box")}`,
+							},
+							<CustomDesc>{
+								type: "custom",
+								x: 130,
+								y: 95,
+								width: 14,
+								height: 14,
+								onDraw: function (g) {
+									const img = g.getImage(5088); //empty bottle
+									if (img)
+									{
+										g.image(img.id, 0, 0);
+									}
+								}
+							},
+							<LabelDesc>{
+								type: "label",
+								x: 150,
+								y: 95,
+								width: 110,
+								height: widgetLineHeight,
+								text: `Empty Bottle: {WHITE}${litterCount("empty_bottle")}`,
+							},
+							<CustomDesc>{
+								type: "custom",
+								x: 130,
+								y: 110,
+								width: 14,
+								height: 14,
+								onDraw: function (g) {
+									const img = g.getImage(5106); //empty bowl red
+									if (img)
+									{
+										g.image(img.id, 0, 0);
+									}
+								}
+							},
+							<LabelDesc>{
+								type: "label",
+								x: 150,
+								y: 110,
+								width: 110,
+								height: widgetLineHeight,
+								text: `Bowl Red: {WHITE}${litterCount("empty_bowl_red")}`,
+							},
+							<CustomDesc>{
+								type: "custom",
+								x: 130,
+								y: 125,
+								width: 14,
+								height: 14,
+								onDraw: function (g) {
+									const img = g.getImage(5107); //empty drink carton
+									if (img)
+									{
+										g.image(img.id, 0, 0);
+									}
+								}
+							},
+							<LabelDesc>{
+								type: "label",
+								x: 150,
+								y: 125,
+								width: 110,
+								height: widgetLineHeight,
+								text: `Drink Carton: {WHITE}${litterCount("empty_drink_carton")}`,
+							},
+							<CustomDesc>{
+								type: "custom",
+								x: 130,
+								y: 140,
+								width: 14,
+								height: 14,
+								onDraw: function (g) {
+									const img = g.getImage(5108); //empty juice cup
+									if (img)
+									{
+										g.tertiaryColour = 18;
+										g.image(img.id, 0, 0);
+									}
+								}
+							},
+							<LabelWidget>{
+								type: "label",
+								x: 150,
+								y: 140,
+								width: 110,
+								height: widgetLineHeight,
+								text: `Juice Cup: {WHITE}${litterCount("empty_juice_cup")}`,
+							},
+							<CustomDesc>{
+								type: "custom",
+								x: 130,
+								y: 155,
+								width: 14,
+								height: 14,
+								onDraw: function (g) {
+									const img = g.getImage(5110); //empty bowl blue
+									if (img)
+									{
+										g.image(img.id, 0, 0);
+									}
+								}
+							},
+							<LabelWidget>{
+								type: "label",
+								x: 150,
+								y: 155,
+								width: 110,
+								height: widgetLineHeight,
+								text: `Bowl Blue: {WHITE}${litterCount("empty_bowl_blue")}`,
+							},
+							//Total litter
+							<CustomDesc>{
+								type: "custom",
+								x: 20,
+								y: 190,
+								width: 14,
+								height: 14,
+								onDraw: function (g) {
+									const img = g.getImage(5115); //check list
+									if (img)
+									{
+										g.image(img.id, 0, 0);
+									}
+								}
+							},
+							<LabelWidget>{
+								type: "label",
+								x: 40,
+								y: 190,
+								width: 200,
+								height: widgetLineHeight,
+								text: `Total amount of litter: {WHITE}${totalLitterCount()}`,
+							},
+						],
+					},
+					{
+						image: {
+							frameBase: 5221, //Paint brush
+							frameCount: 8,
 							frameDuration: 4,
 						},
 						widgets: [
@@ -276,7 +595,7 @@ export class LitterEditorWindow {
 								y: 55,
 								width: 240,
 								height: 170,
-								text: "Stats",
+								text: "Pixel Art",
 							},
 							<LabelWidget>{
 								type: "label",
@@ -397,8 +716,11 @@ function selectLitter(type: EntityType): void {
 //Changes the litterType.
 
 function setLitter(number: number): void {
+	const window = ui.getWindow(windowId);
+	const createLitterButton = window.findWidget<ButtonWidget>(buttonCreateLitter)
 	const litterTypeList: LitterType[] = ["vomit", "vomit_alt", "empty_can", "rubbish", "burger_box", "empty_cup", "empty_box", "empty_bottle", "empty_bowl_red", "empty_drink_carton", "empty_juice_cup", "empty_bowl_blue"];
-	idLitter.litterType = litterTypeList[number];
+	if (idLitter && !createLitterButton.isPressed){idLitter.litterType = litterTypeList[number];}
+	else {selectedLitterType = litterTypeList[number]; debug("littertype set");}
 }
 //Changes the name in the DropDownDesc.
 
@@ -525,23 +847,26 @@ function createLitter(type: EntityType): void {
 	const zLabel = window.findWidget<LabelWidget>(zPositionLabel);
 	if (createLitterButton.isPressed !== false) {
 		createLitterButton.isPressed = false;
+		dropDownType.isDisabled = true;
+		labelLitterType.isDisabled = true;
+		dropDownType.text = " ";
 		ui.tool?.cancel();
 	}
 	else {
 		createLitterButton.isPressed = true;
 		buttonPicker.isPressed = false;
 		deleteButton.isPressed = false;
-		dropDownType.isDisabled = true;
+		dropDownType.isDisabled = false;
 		multiplier.isDisabled = true;
 		labelMultiplier.isDisabled = true;
-		labelLitterType.isDisabled = true;
+		labelLitterType.isDisabled = false;
 		xPosition.isDisabled = true;
 		yPosition.isDisabled = true;
 		zPosition.isDisabled = true;
 		xLabel.isDisabled = true;
 		yLabel.isDisabled = true;
 		zLabel.isDisabled = true;
-		dropDownType.text = " ";
+		dropDownType.selectedIndex = 0;
 		xPosition.text = " ";
 		yPosition.text = " ";
 		zPosition.text = " ";
@@ -558,7 +883,9 @@ function createLitter(type: EntityType): void {
 					const axisCoords = e.mapCoords;
 					const surfaceElements = getTileElements("surface", axisCoords);
 					const oneSurfaceElementZValue = surfaceElements[0].element.baseZ;
-					map.createEntity(type, {x: axisCoords.x, y: axisCoords.y, z: oneSurfaceElementZValue });
+					const createdEntity = map.createEntity(type, {x: axisCoords.x, y: axisCoords.y, z: oneSurfaceElementZValue});
+					const createdLitter = <Litter>createdEntity;
+					createdLitter.litterType = selectedLitterType;
 				}
 			}
 		});

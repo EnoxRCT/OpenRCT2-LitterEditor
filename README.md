@@ -2,7 +2,7 @@
 
 ## Installation
 
-1. Download the latest version of the plugin from the [Releases page](https://github.com/EnoxRCT/OpenRCT2-LitterEditor/releases/tag/v1.0).
+1. Download the latest version of the plugin from the [Releases page](https://github.com/EnoxRCT/OpenRCT2-LitterEditor/releases/tag/v1.1).
 2. To install it, put the downloaded `*.js` file into your `/OpenRCT2/plugin` folder.
     - Easiest way to find the OpenRCT2-folder is by launching the OpenRCT2 game, click and hold on the red toolbox in the main menu, and select "Open custom content folder".
     - Otherwise this folder is commonly found in `C:/Users/<YOUR NAME>/Documents/OpenRCT2/plugin` on Windows.
